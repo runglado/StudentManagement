@@ -1,0 +1,15 @@
+<div class="container">
+  <h2>{{ titleTable }}</h2>        
+  <table class="table">
+    <thead>
+      <tr>
+        <th *ngFor="let nameColumn of headers">{{ nameColumn }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows">
+        <td *ngFor="let ceil of row.data">{{ ceil }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>Student Information</h1>
+  <form (ngSubmit)="onSubmit()" #studentForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name"
+             required
+             [(ngModel)]="student.name" name="name"
+             #name="ngModel">
+      <div [hidden]="name.valid || name.pristine"
+           class="alert alert-danger">
+        Name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone number:</label>
+      <input type="text" class="form-control" id="phone"
+             [(ngModel)]="student.phone" name="phone" pattern="[0-9]+" required
+             #phone="ngModel">
+      <div [hidden]="(phone.valid && !phone.errors?.pattern) || phone.pristine"
+             class="alert alert-danger">
+          Please input number from 0 to 9
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="dateOfBirth">Date of birth: (MM/DD/YYYY)</label>
+      <input type="text" class="form-control" id="dateOfBirth"
+             [(ngModel)]="student.dateOfBirth" name="dateOfBirth" (ngModelChange)="validate()">
+      <div [hidden]="dateValid"
+             class="alert alert-danger">
+          Date is wrong format.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <input type="radio" name="gender" value="Male" [(ngModel)]="student.gender"/>Male
+      <input type="radio" name="gender" value="Female" [(ngModel)]="student.gender"/>Female
+    </div>
+
+    <div class="form-group">
+      <label for="class">Class:</label>
+      <select class="form-control" id="class"
+              required
+              [(ngModel)]="student.class.id" name="class"
+              #class="ngModel">
+        <option *ngFor="let c of classes" [value]="c.id">{{c.name}}</option>
+      </select>
+      <div [hidden]="class.valid || class.pristine" class="alert alert-danger">
+        Class is required
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!studentForm.form.valid || !dateValid">Add</button>
+  </form>
+</div>
